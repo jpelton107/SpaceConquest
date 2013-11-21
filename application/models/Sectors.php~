@@ -1,0 +1,33 @@
+<?php
+class Sector extends CI_Model
+{
+	private $table = "sector";
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	/*
+	 * grabs the id for sector with the least amount of users
+	 */
+	public function getNext()
+	{
+		$query = $this->db->get($this->table);
+		$rows = $query->result_array();
+		$prevCount = 1;
+		foreach($rows as $row) {
+			$query2 = $this->db->get_where('users', array('sector_id' => $row['id']));
+			$count = $query2->num_rows();
+			if ($count < $prevCount) {
+				$sector_id = $row['id'];
+			} else {
+				$prevCount = $count;
+			}
+		}
+
+		if (!$sector_id) { $sector_id = 1; }
+
+		return $sector_id;
+	}
+
+}

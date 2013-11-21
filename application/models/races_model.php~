@@ -1,0 +1,20 @@
+<?php
+Races_model extends CI_Model
+{
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->database();
+	}
+
+	public function get_races($id = false)
+	{
+		if ($id === false) {
+			$this->db->get('race');
+			return $query->result_array();
+		} else {
+			$this->db->get_where('race', array('id' => $id));
+			return $query->row_array();
+		}
+	}	
+}
