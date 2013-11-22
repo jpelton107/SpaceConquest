@@ -92,17 +92,17 @@ create table if not exists race (
 	name varchar(64) not null,
 	description varchar(256) not null
 );
-create table galaxy if not exists (
+create table if not exists galaxy (
 	id int(22) unsigned not null primary key auto_increment
 );
-create table sector if not exists (
+create table if not exists sector (
 	id int(22) unsigned not null primary key auto_increment,
 	sector int(22) unsigned not null,
 	galaxy_id int(22) unsigned not null,
 	leader_id int(22) unsigned null,
 	foreign key (galaxy_id) references galaxy(id),
 );
-create table ship_reference if not exists (
+create table if not exists ship_reference (
 	id int(22) unsigned not null primary key auto_increment,
 	name varchar(64) not null,
 	image varchar(64) not null,
@@ -118,7 +118,7 @@ create table ship_reference if not exists (
 	cost_credits int(11) not null,
 	cost_dilithium int(11) not null
 );
-create table ship  if not exists(
+create table if not exists ship  (
 	id int(22) unsigned not null primary key auto_increment,
 	user_id int(11) not null,
 	ref_id int(22) not null,
@@ -130,6 +130,35 @@ create table ship  if not exists(
 	foreign key (ref_id) references ship_reference(id),
 	foreign key (user_id) references users(id)
 );
+create table if not exists resources_reference (
+	id tinyint(3) not null primary key auto_increment,
+	name varchar(64) not null
+	);
+create table if not exists resources (
+	id int(22) unsigned not null primary key auto_increment,
+	user_id int(11) not null,
+	res_id tinyint(3) not null,
+	quantity int(11) not null default '5',
+	miners int(11) not null default '1',
+	foreign key (user_id) references users(id),
+	foreign key (res_id) references resources_reference(id)
+	);
+
 insert into galaxy (id) values (1), (2);
 insert into sector (sector, galaxy_id) values (1, 1), (2, 1), (3, 1), (4, 1), (1, 2), (2, 2), (3, 2), (4,2);
 insert into race (name, description) values ('Terran', 'They are more commonly known as humans. These barbaric creatures are out for blood, and receive a tremendous 15% attack bonus. They are over aggressive, and are not good at managing their economy. They lose 15% time while mining crystals, and dilithium.'), ('Thirgian', 'A primative race, but what they lack in technology they make up for in mining skill. This race receives a 15% boost to their mining, but they lose 15% resarch.'), ('Abjuko', 'The Abjuko are an incredibly intelligent, peaceful civilization. Nearly the entire population aspires to become a great scientist. They research technology 25% faster than Terrans, but they lose 25% when they decide to attack.');
+insert into ship_reference 
+	(name, image, attack, defense, score, shield, hull, power, travel_time, build_time, cost_crystal, cost_credits, cost_dilithium) 
+	values 
+	('Zalo', 'img/zalo.png', '5', '1', '10', '20','20','25','4','4','10','100','3'), 
+	('Intercepter', 'img/intercepter.png', '7', '5', '25', '30','30','50','6','8','13','200','13'), 
+	('Fighter', 'img/fighter.png', '12', '1', '25', '20', '20', '40', '4', '10', '25', '200', '2'),
+	('Wraith', 'img/wraith.png', '15', '10', '50', '50','50','100','8','14','30','300','13'),
+	('Corsair', 'img/corsair.png', '20', '18', '100', '100', '100', '200', '12', '18', '40', '500', '30'),
+	('Battlecruiser', 'img/battlecruiser.png', '35', '35', '200', '200', '200', '400', '16', '24', '60', '750', '60');
+insert into resources_reference
+	(id, name)
+	values
+	(1, 'Crystals'),
+	(2, 'Dilithium'),
+	(3, 'Credits');

@@ -194,6 +194,13 @@ class Tank_auth
 				$data['user_id'] = $res['user_id'];
 				$data['password'] = $password;
 				unset($data['last_ip']);
+
+				// add other information
+				$this->ci->load->model('resources');
+				$this->ci->resources->add_initial_resources($res['user_id']);
+				$this->ci->load->model('ship');
+				$this->ci->ship->add_ship($res['user_id']);
+
 				return $data;
 			}
 		}
