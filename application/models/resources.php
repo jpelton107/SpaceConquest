@@ -37,4 +37,14 @@ class Resources extends CI_Model {
 		$this->db->insert($this->table, $data);
 	}
 
+	public function get_user_resources($uid)
+	{
+		$query = $this->db->query("select r.quantity, ref.name 
+			from ".$this->table." r
+			left join resources_reference ref
+			on ref.id=r.res_id
+			where user_id=?", array($uid));
+		return $query->result_array();
+	}
+
 }

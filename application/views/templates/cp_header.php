@@ -4,6 +4,14 @@
 </head>
 <body>
 <header>
+	<div class="header-left resources">
+		<ul>
+<?php foreach ($resources as $resource): ?>
+			<li><?php echo $resource['name']; ?> <?php echo $resource['quantity']; ?></li>
+<?php endforeach; ?>
+		</ul>
+	</div>
+		
 	<h3>Space Conquest</h3>
 </header>
 <nav>
