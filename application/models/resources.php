@@ -39,7 +39,7 @@ class Resources extends CI_Model {
 
 	public function get_user_resources($uid)
 	{
-		$query = $this->db->query("select r.quantity, ref.name 
+		$query = $this->db->query("select ref.id, r.quantity, ref.name , r.miners
 			from ".$this->table." r
 			left join resources_reference ref
 			on ref.id=r.res_id

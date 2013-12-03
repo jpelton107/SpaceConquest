@@ -24,4 +24,12 @@ class Overview extends CI_Controller {
 		$this->load->view('templates/cp_footer');
 	}
 
+	public function economy()
+	{
+		$this->user->load_resource_production();
+		$data = array('resources' => $this->user->get_resources());
+		$this->load->view('cp/economy', $data);
+		$this->load->view('templates/cp_footer');
+	}
+
 }
