@@ -31,9 +31,9 @@ class User {
 	public function load_resource_production()
 	{
 		$this->ci->load->model('buildings');
+		$buildings = $this->ci->buildings->get_buildings($this->user_id);
 		foreach ($this->resources as $k => $resource) 
 		{
-			$buildings = $this->ci->buildings->get_buildings($this->user_id);
 			switch($resource['id']) {
 			case '1': // crystals
 				$bldgID = 2;
