@@ -46,9 +46,9 @@ class User {
 				break;
 			}
 
-			foreach($buildings as $k => $val) {
+			foreach($buildings as $bldK => $val) {
 				if ($val['id'] == $bldgID) {
-					$buildingKey = $k;
+					$buildingKey = $bldK;
 				}
 			}
 
@@ -76,6 +76,18 @@ class User {
 			$this->resources[$k]['production'] = floor($production);
 		}
 
+	}
+
+	public function load_buildings()
+	{
+		$this->ci->load->model('buildings');
+		$buildings = $this->ci->buildings->get_raw_info($this->user_id);
+		foreach($buildings as $building) 
+		{
+			$key = $building['building_id'];
+			$retvals[$key] = $building;
+		}
+		return $retvals;
 	}
 
 	public function get_user_id() { return $this->user_id; }

@@ -200,6 +200,13 @@ class Tank_auth
 				$this->ci->resources->add_initial_resources($res['user_id']);
 				$this->ci->load->model('ship');
 				$this->ci->ship->add_ship($res['user_id']);
+				$this->ci->load->model('buildings_reference');
+				$buildings = $this->ci->buildings_reference->get_all();
+				$this->ci->load->model('buildings');
+				foreach($buildings as $building) 
+				{
+					$this->ci->buildings->add_blank($res['user_id'], $building['id']);
+				}
 
 				return $data;
 			}

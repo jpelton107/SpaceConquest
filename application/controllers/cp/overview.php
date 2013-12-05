@@ -32,4 +32,10 @@ class Overview extends CI_Controller {
 		$this->load->view('templates/cp_footer');
 	}
 
+	public function fleet()
+	{
+
+	}
+
+
 }
