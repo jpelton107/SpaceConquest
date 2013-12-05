@@ -52,7 +52,7 @@ class User {
 				}
 			}
 
-			$quantity = !empty($buildingKey) ? $buildings[$buildingKey]['quantity'] : 1;
+			$quantity = $buildings[$buildingKey]['quantity'];
 			$miners = $resource['miners'] ? $resource['miners'] : 1;
 			$production = $miners * $quantity; 
 
