@@ -47,4 +47,13 @@ class Resources extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function update_credits($uid, $credits)
+	{
+		$data = array('quantity' => $credits);
+		$where = array(
+			'user_id' => $uid,
+			'res_id' => 3
+		);
+		$query = $this->db->update($this->table, $data, $where);
+	}
 }

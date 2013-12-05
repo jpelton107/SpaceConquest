@@ -27,7 +27,7 @@ class Buildings extends CI_Model {
 	public function build($id, $quantity)
 	{
 		$data = array(
-
+			'quantity' => $quantity
 		);
 		$where = array(
 			'id' => $id);

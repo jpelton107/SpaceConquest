@@ -2,12 +2,21 @@
 $quantity = array(
 	'name' => 'quantity',
 	'id' => 'quantity',
-	'value' => set_value('quantity'),
+	'value' => 0,
 	'maxlength' => 80,
 	'size' => 2,
 	'type' => 'number',
 );
+echo validation_errors();
+if (isset($error)):
+	foreach($error as $err):
 ?>
+<div class="error"><?php echo $err ?></div>
+<?php
+	endforeach;
+endif;
+?>
+
 <div class="content">
 	<table border=1>
 		<tr>
