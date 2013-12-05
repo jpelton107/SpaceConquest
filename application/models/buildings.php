@@ -35,12 +35,12 @@ class Buildings extends CI_Model {
 		$this->db->update($this->table, $data, $where);
 	}
 
-	public function add_blank($uid, $building_id) 
+	public function add_first($uid, $building_id) 
 	{
 		$data = array(
 			'user_id' => $uid,
 			'building_id' => $building_id,
-			'quantity' => 0,
+			'quantity' => 1,
 		);
 		$this->db->insert($this->table, $data);
 	}

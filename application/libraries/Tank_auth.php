@@ -205,7 +205,7 @@ class Tank_auth
 				$this->ci->load->model('buildings');
 				foreach($buildings as $building) 
 				{
-					$this->ci->buildings->add_blank($res['user_id'], $building['id']);
+					$this->ci->buildings->add_first($res['user_id'], $building['id']);
 				}
 
 				return $data;
