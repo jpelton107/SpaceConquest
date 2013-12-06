@@ -39,12 +39,19 @@ class Resources extends CI_Model {
 
 	public function get_user_resources($uid)
 	{
-		$query = $this->db->query("select ref.id, r.quantity, ref.name , r.miners
+		$query = $this->db->query("select r.id as primary_id, ref.id, r.quantity, ref.name , r.miners
 			from ".$this->table." r
 			left join resources_reference ref
 			on ref.id=r.res_id
 			where user_id=?", array($uid));
 		return $query->result_array();
+	}
+
+	public function update($id, $quantity)
+	{
+		$data = array('quantity' => $quantity);
+		$where = array('id' => $id);
+		$this->db->update($this->table, $data, $where);
 	}
 
 	public function update_credits($uid, $credits)

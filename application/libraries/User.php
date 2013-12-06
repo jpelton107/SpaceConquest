@@ -8,24 +8,36 @@ class User {
 	public function __construct()
 	{
 		$this->ci =& get_instance();
-
-		$this->ci->load->library('tank_auth');
-		if ( ! $this->ci->tank_auth->is_logged_in()) {
-			redirect('/auth/login/');
-		}
-		$this->user_id = $this->ci->tank_auth->get_user_id();
-
-		// set user values
 		$this->ci->load->model('users_model');
-		$this->user_info = $this->ci->users_model->setup($this->user_id);
 
-		// load resources
+		if ( ! $this->ci->input->is_cli_request()) 
+		{
+			$this->ci->load->library('tank_auth');
+			if ( ! $this->ci->tank_auth->is_logged_in()) 
+			{
+				redirect('/auth/login/');
+			}
+			$this->user_id = $this->ci->tank_auth->get_user_id();
+
+			// set user values
+			$this->user_info = $this->ci->users_model->setup($this->user_id);
+
+			// load resources
+			$this->ci->load->model('resources');
+			$this->resources = $this->ci->resources->get_user_resources($this->user_id);
+			$data['resources'] = $this->resources;
+
+			$this->ci->load->view('templates/cp_header', $data);
+		}
+
+	}
+
+	public function set_id($id)
+	{
+		$this->user_id = $id;
+		$this->user_info = $this->ci->users_model->setup($this->user_id);
 		$this->ci->load->model('resources');
 		$this->resources = $this->ci->resources->get_user_resources($this->user_id);
-		$data['resources'] = $this->resources;
-
-		$this->ci->load->view('templates/cp_header', $data);
-
 	}
 
 	public function load_resource_production()

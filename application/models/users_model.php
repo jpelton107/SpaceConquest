@@ -16,4 +16,10 @@ class Users_model extends CI_Model {
 		return $this->$info[$field];
 	}
 
+	public function get_all()
+	{
+		$query = $this->db->get($this->table);
+		return $query->result_array();
+	}
+
 }
