@@ -1,0 +1,31 @@
+*html
+{
+	height:100%;
+	width:auto;
+}
+header
+{
+	clear:both;
+}
+	header .resources ul
+	{
+		list-style-type:none;
+	}
+		header .resources ul li
+		{
+			display:inline;
+			padding-right:2em;
+		}
+nav ul
+{
+	float:left;
+}
+
+.content 
+{
+	float:left;
+}
+#footer 
+{
+	clear:both;
+}
