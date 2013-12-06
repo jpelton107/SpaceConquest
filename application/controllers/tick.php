@@ -1,4 +1,11 @@
 <?php
+/**
+ * To run tick, navigate to root dir and in cmd line enter:
+ * 	
+ * 	 php index.php Tick
+ *
+ *
+ */
 class Tick extends CI_Controller {
 	public function __construct()
 	{
