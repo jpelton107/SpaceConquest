@@ -9,18 +9,28 @@ class Recruits extends CI_Controller {
 
 		$this->load->helper('url');
 		$this->load->library('user');
-		$this->load->model('buildings_reference');
 		$this->load->helper('form');
-		$this->all_buildings =  $this->buildings_reference->get_all();
 		$this->user_buildings = $this->user->load_buildings();
 	}
 
 	public function index()
 	{
-		$data = array('all_buildings' => $this->all_buildings,
-			'user_buildings' => $this->user_buildings,
-		);
-		$this->load->view('cp/building', $data);
+		$this->user->load_resource_production();
+		$resources = $this->user->get_resources();
+
+		$total = $this->user_buildings[1]['quantity'] * 5; // TODO: make '5' a config file
+		$recruits['total'] = $total;
+		foreach($resources as $resource) 
+		{
+			$name = strtolower($resource['name']);
+			$recruits[$name] = $resource['miners'];
+			$total -= $resource['miners'];
+		}
+		// TODO: add pilots and scientists
+		$recruits['pilots'] = '';
+		$recruits['scientists'] = '';
+	
+		$this->load->view('cp/recruits', array('recruits' => $recruits));
 		$this->load->view('templates/cp_footer');
 	}
 
