@@ -19,7 +19,9 @@
 <nav>
 	<ul>
 		<h4>Production</h4>
+		<li><?php echo anchor('/cp/overview/', 'Overview'); ?></li>
 		<li><?php echo anchor('/cp/overview/economy/', 'Economy'); ?></li>
+		<li><?php echo anchor('/cp/recruits/', 'Manage Recruits'); ?></li>
 		<li><?php echo anchor('/cp/building/', 'Building'); ?></li>
 		<li><?php echo anchor('/cp/fleet/build/', 'Construct Ship'); ?></li>
 		<h4>Military</h4>
