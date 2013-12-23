@@ -15,10 +15,11 @@ class Recruits extends CI_Controller {
 
 	public function index()
 	{
+		$this->load->library('form_validation');
 		$this->user->load_resource_production();
 		$resources = $this->user->get_resources();
 
-		$total = $this->user_buildings[1]['quantity'] * 5; // TODO: make '5' a config file
+		$total = $this->user_buildings[1]['quantity'] * 5; // TODO: place '5' a config file
 		$recruits['total'] = $total;
 		foreach($resources as $resource) 
 		{
@@ -29,71 +30,43 @@ class Recruits extends CI_Controller {
 		// TODO: add pilots and scientists
 		$recruits['pilots'] = '';
 		$recruits['scientists'] = '';
-	
-		$this->load->view('cp/recruits', array('recruits' => $recruits));
-		$this->load->view('templates/cp_footer');
-	}
 
-	public function process()
-	{
-		$this->load->library('form_validation');
 		// validate
 		$config = array(
 			array(
-				'field' => 'quantity',
-				'label' => 'Quantity',
-				'rules' => 'required|integer|greater_than[0]',
+				'field' => 'crystal_miners',
+				'label' => 'Crystal Miners',
+				'rules' => 'integer',
 			),
 			array(
-				'field' => 'id',
-				'label' => 'Building Type',
-				'rules' => 'required|integer|greater_than[0]',
+				'field' => 'dilithium_miners',
+				'label' => 'Dilithium Miners',
+				'rules' => 'integer',
+			),
+			array(
+				'field' => 'law_enforcement',
+				'label' => 'Law Enforcement',
+				'rules' => 'integer',
 			),
 		);
 		$this->form_validation->set_rules($config);
 		if ($this->form_validation->run() != FALSE)
 		{
-			$quantity = $this->input->post('quantity');
-			$id = $this->input->post('id');
-
-			// get old quantity
-			foreach($this->user_buildings as $k => $building)
+			$crystal_miners = $this->form_validation->set_value('crystal_miners');
+			$dilithium_miners = $this->form_validation->set_value('dilithium_miners');
+			$law_enforcement = $this->form_validation->set_value('law_enforcement');
+			if ($crystal_miners + $dilithium_miners + $law_enforcement > $total)
 			{
-				if ($building['id'] == $id) 
-				{
-					$user_building_key = $k;
-					$building_id = $building['building_id'];
-					$new_quantity = $quantity + $building['quantity'];
-				}
+				// not enough miners
 			}
-
-			// make sure he has enough credits
-			foreach ($this->all_buildings as $single_building) 
+			else
 			{
-				if ($single_building['id'] == $building_id) 
-				{
-					$cost = $single_building['cost'];
-				}
-			}
-			$total_cost = $cost * $quantity;
-			$resources = $this->user->get_resources();
-			$new_credits = $resources[2]['quantity'] - $total_cost;
-			if ($new_credits >= 0) 
-			{
-				$this->buildings->build($id, $new_quantity);
-				// reset user_buildings array to account for new production and display properly when the screen is loaded
-				$this->user_buildings[$user_building_key]['quantity'] = $new_quantity;
-
-				// now take away credits
-				$this->load->model('resources');
-				$this->resources->update_credits($this->user->get_user_id(), $new_credits);
-			} else {
-				$data['error'][] = 'Not enough credits at your disposal to purchase requested buildings.';
+				// perfect, update the db
 			}
 		}
-		$data['all_buildings'] = $this->all_buildings;
-		$data['user_buildings'] = $this->user_buildings;
-		$this->load->view('cp/building', $data);
+
+	
+		$this->load->view('cp/recruits', array('recruits' => $recruits));
 		$this->load->view('templates/cp_footer');
 	}
 
