@@ -26,7 +26,6 @@ class User {
 			$this->ci->load->model('resources');
 			$this->resources = $this->ci->resources->get_user_resources($this->user_id);
 			$data['resources'] = $this->resources;
-
 			$this->ci->load->view('templates/cp_header', $data);
 		}
 

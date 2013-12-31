@@ -78,7 +78,7 @@ class Building extends CI_Controller {
 				$this->load->model('resources');
 				$this->resources->update_credits($this->user->get_user_id(), $new_credits);
 			} else {
-				$data['error'][] = 'Not enough credits at your disposal to purchase requested buildings.';
+				$data['errors'][] = 'Not enough credits at your disposal to purchase requested buildings.';
 			}
 		}
 		$data['all_buildings'] = $this->all_buildings;

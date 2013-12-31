@@ -63,4 +63,15 @@ class Resources extends CI_Model {
 		);
 		$query = $this->db->update($this->table, $data, $where);
 	}
+
+	public function update_miners($uid, $crystal, $dilithium, $law)
+	{
+		$where['user_id'] = $uid;
+		$where['res_id'] = 1;
+		$this->db->update($this->table, array('miners' => $crystal), $where);
+		$where['res_id'] = 2;
+		$this->db->update($this->table, array('miners' => $dilithium), $where);
+		$where['res_id'] = 3;
+		$this->db->update($this->table, array('miners' => $law), $where);
+	}
 }

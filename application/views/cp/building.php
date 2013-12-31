@@ -7,16 +7,7 @@ $quantity = array(
 	'size' => 2,
 	'type' => 'number',
 );
-echo validation_errors();
-if (isset($error)):
-	foreach($error as $err):
 ?>
-<div class="error"><?php echo $err ?></div>
-<?php
-	endforeach;
-endif;
-?>
-
 <div class="content">
 	<table border=1>
 		<tr>

@@ -5,6 +5,7 @@ class Recruits extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('form_validation');
 		$this->load->helper('html');
 
 		$this->load->helper('url');
@@ -15,7 +16,6 @@ class Recruits extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->library('form_validation');
 		$this->user->load_resource_production();
 		$resources = $this->user->get_resources();
 
@@ -30,6 +30,7 @@ class Recruits extends CI_Controller {
 		// TODO: add pilots and scientists
 		$recruits['pilots'] = '';
 		$recruits['scientists'] = '';
+		$data['recruits'] = $recruits;
 
 		// validate
 		$config = array(
@@ -55,18 +56,26 @@ class Recruits extends CI_Controller {
 			$crystal_miners = $this->form_validation->set_value('crystal_miners');
 			$dilithium_miners = $this->form_validation->set_value('dilithium_miners');
 			$law_enforcement = $this->form_validation->set_value('law_enforcement');
-			if ($crystal_miners + $dilithium_miners + $law_enforcement > $total)
+			if (($crystal_miners + $dilithium_miners + $law_enforcement) > $recruits['total'])
 			{
 				// not enough miners
+				$data['errors'][] = "Not enough recruits available.";
 			}
 			else
 			{
 				// perfect, update the db
+				$user_id = $this->user->get_user_id();
+				$this->resources->update_miners($user_id, $crystal_miners, $dilithium_miners, $law_enforcement);
+				$data['success'] = "Recruits have been successfully assigned to a position.";
+				$data['recruits']['crystals'] = $crystal_miners;
+				$data['recruits']['dilithium'] = $dilithium_miners;
+				$data['recruits']['credits'] = $law_enforcement;
 			}
 		}
 
 	
-		$this->load->view('cp/recruits', array('recruits' => $recruits));
+		$this->load->view('templates/error', $data);
+		$this->load->view('cp/recruits', $data);
 		$this->load->view('templates/cp_footer');
 	}
 
