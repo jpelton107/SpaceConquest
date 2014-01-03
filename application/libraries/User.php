@@ -53,7 +53,7 @@ class User {
 				$bldgID = 3;
 				break;
 			case '3': // credits
-				$bldgID = 4;
+				$bldgID = 5;
 				break;
 			}
 
@@ -70,7 +70,7 @@ class User {
 			// 10x as many credits
 			if ($resource['id'] == '3') 
 			{
-				$production *= 10;
+				$production *= 3;
 			}
 
 			// take into account race bonuses
