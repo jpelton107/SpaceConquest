@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.32, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.6.15, for osx10.7 (x86_64)
 --
 -- Host: localhost    Database: spaceconquest
 -- ------------------------------------------------------
--- Server version	5.5.32-0ubuntu0.12.10.1
+-- Server version	5.6.15
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -43,7 +43,7 @@ CREATE TABLE `buildings` (
 
 LOCK TABLES `buildings` WRITE;
 /*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-INSERT INTO `buildings` VALUES (1,8,1,10,0,0),(2,8,2,0,NULL,NULL),(3,8,3,0,NULL,NULL),(4,8,4,0,NULL,NULL),(5,8,5,0,NULL,NULL),(6,8,6,0,NULL,NULL),(7,8,7,0,NULL,NULL);
+INSERT INTO `buildings` VALUES (1,8,1,10,0,0),(2,8,2,1,NULL,NULL),(3,8,3,1,NULL,NULL),(4,8,4,1,NULL,NULL),(5,8,5,5,NULL,NULL),(6,8,6,1,NULL,NULL),(7,8,7,1,NULL,NULL);
 /*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -200,7 +200,7 @@ CREATE TABLE `resources` (
 
 LOCK TABLES `resources` WRITE;
 /*!40000 ALTER TABLE `resources` DISABLE KEYS */;
-INSERT INTO `resources` VALUES (14,8,1,50,5),(15,8,2,25,2),(16,8,3,500,3);
+INSERT INTO `resources` VALUES (14,8,1,50,10),(15,8,2,25,0),(16,8,3,0,40);
 /*!40000 ALTER TABLE `resources` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -410,7 +410,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (8,'Joel','$2a$08$vDJp4wTJ/i077SNBiaX0je.IlIMpEMRrumMSuCiqwzag6PlZWgH0m','joelpelton@hotmail.com',8,1,NULL,1,0,NULL,NULL,NULL,NULL,NULL,'164.119.14.166','2013-12-05 09:22:51','2013-11-22 13:11:02','2013-12-05 15:22:51');
+INSERT INTO `users` VALUES (8,'Joel','$2a$08$vDJp4wTJ/i077SNBiaX0je.IlIMpEMRrumMSuCiqwzag6PlZWgH0m','joelpelton@hotmail.com',8,1,NULL,1,0,NULL,NULL,NULL,NULL,NULL,'::1','2014-01-06 14:32:40','2013-11-22 13:11:02','2014-01-06 20:32:40');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -423,4 +423,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-05 11:47:29
+-- Dump completed on 2014-01-06 14:35:14
