@@ -101,6 +101,13 @@ class User {
 		return $retvals;
 	}
 
+	public function load_ships()
+	{
+		$this->ci->load->model('ship');
+		return $this->ci->ship->get_ships($this->user_id);
+	}
+
+
 	public function get_user_id() { return $this->user_id; }
 	public function get_resources() { return $this->resources; }
 }

@@ -10,19 +10,17 @@
 <?php 
 if ($user_ships):
 	foreach($user_ships as $user_ship): 
-		$key = $user_ship['ref_id'] - 1;
-		$name = $ship_list[$key]['name'];
 ?>
 		<tr>
-			<td><?php echo $name ?></td>
-			<td><?php echo $user_ship['hull'] . "/" . $ship_list[$key]['hull'] ?></td>
-			<td><?php echo $user_ship['shield'] . "/" . $ship_list[$key]['shield'] ?></td>
-			<td><?php echo $user_ship['power'] . "/" . $ship_list[$key]['power'] ?></td>
+			<td><?php echo $user_ship['name'] ?></td>
+			<td><?php echo $user_ship['current_hull'] . "/" . $user_ship['max_hull'] ?></td>
+			<td><?php echo $user_ship['current_shield'] . "/" . $user_ship['max_shield'] ?></td>
+			<td><?php echo $user_ship['current_power'] . "/" . $user_ship['max_power'] ?></td>
 			<td>
 		<?php 
-		if ($user_ship['travel'] > 0) echo "traveling (".$user_ship['travel']." ticks)";
-		elseif ($user_ship['building'] > 0) echo "building (".$user_ship['building']." ticks)";
-		else echo "defending";
+		if ($user_ship['current_travel'] > 0) echo "Traveling (".$user_ship['current_travel']." ticks)";
+		elseif ($user_ship['current_building'] > 0) echo "Building (".$user_ship['current_building']." ticks)";
+		else echo "Defending";
 ?>
 			</td>
 		</tr>

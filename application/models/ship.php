@@ -16,6 +16,27 @@ class Ship extends CI_Model {
 			return 0;
 		}
 
+		$this->db->select("ship.hull as current_hull,
+		             ship.shield as current_shield,
+		     	     ship.power as current_power,
+			     ship.travel as current_travel,
+			     ship.building as current_building,
+			     ship.id as ship_id,
+			     ship_reference.image,
+			     ship_reference.name,
+			     ship_reference.id as ref_id,
+			     ship_reference.attack,
+			     ship_reference.defense,
+			     ship_reference.score,
+			     ship_reference.shield as max_shield,
+			     ship_reference.hull as max_hull,
+			     ship_reference.power as max_power,
+			     ship_reference.travel_time as max_travel,
+			     ship_reference.build_time as max_build,
+			     ship_reference.cost_crystal,
+			     ship_reference.cost_credits,
+			     ship_reference.cost_dilithium");
+		$this->db->join('ship_reference', 'ship_reference.id=ship.ref_id');
 		$query = $this->db->get_where($this->table, array('user_id' => $user_id));
 		return $query->result_array();
 	}
