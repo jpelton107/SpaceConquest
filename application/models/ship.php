@@ -41,8 +41,13 @@ class Ship extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function add_ship($user_id, $ship_id = FALSE) 
+	public function add_ship($user_id, $ship_id = FALSE, $building = FALSE) 
 	{
+		if ( ! $building ) 
+		{
+			$building = 0;
+		}
+
 		if ( ! $ship_id ) 
 		{
 			$this->config->load('defaults', TRUE);
@@ -61,7 +66,7 @@ class Ship extends CI_Model {
 			'shield' => $row['shield'],
 			'power' => $row['power'],
 			'travel' => 0,
-			'building' => 0,
+			'building' => $building,
 		);
 		$this->db->insert($this->table, $data);
 	}

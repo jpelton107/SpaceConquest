@@ -16,8 +16,9 @@
 			<th>Build Time</th>
 		</tr>
 <?php
-echo form_open('cp/fleet/build');
 foreach ($ship_list as $ship):
+echo form_open('cp/fleet/build');
+echo form_hidden('ship_id', $ship['id']);
 ?>
 		<tr>
 			<td><img src="/<?php echo $ship['image'] ?>" height=50 width=50></td>
@@ -34,8 +35,8 @@ foreach ($ship_list as $ship):
 			<td><?php echo form_submit('build'.$ship['id'], "Build in ".$ship['build_time']." ticks"); ?></td>
 		</tr>
 <?php
-endforeach;
 echo form_close();
+endforeach;
 ?>
 	</table>
 </div>
